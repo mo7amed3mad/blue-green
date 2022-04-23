@@ -29,7 +29,7 @@ jobs:
             aws cloudformation \
             list-exports --query "Exports[?Name==\`PipelineID\`].Value" \
             --no-paginate --output text > ~/textfile.txt
-      - run: cat textfile.txt     
+      - run: cat ~/textfile.txt     
       - persist_to_workspace:
           root: ~/
           paths: 
@@ -67,15 +67,15 @@ jobs:
 workflows:
   workflow:
     jobs:
-      - create_and_deploy_front_end
-      - promote_to_production:
-          requires:
-            - create_and_deploy_front_end
+     # - create_and_deploy_front_end
+     # - promote_to_production:
+     #     requires:
+     #       - create_and_deploy_front_end
       - get_last_deployment_id
-      - clean_up_old_front_end:
-          requires:
-            - get_last_deployment_id
-            - promote_to_production
+     # - clean_up_old_front_end:
+     #     requires:
+     #       - get_last_deployment_id
+     #       - promote_to_production
             
             
 
